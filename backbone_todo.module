@@ -1,0 +1,29 @@
+<?php
+/**
+ * @file
+ * This is an example outlining how a module can make use backbone.
+ */
+
+/**
+ * Implements hook_menu().
+ *
+ * Set up calls to drupal_get_form() for all our example cases.
+ */
+function backbone_todo_menu() {
+  $items = array();
+
+  $items['backbone-todo'] = array(
+    'title' => 'Backbone todo',
+    'page callback' => 'backbone_todo_page',
+    'access callback' => TRUE,
+  );
+
+  return $items;
+}
+
+/**
+ * Load todolist
+ */
+function backbone_todo_page() {
+  return 'test';
+}

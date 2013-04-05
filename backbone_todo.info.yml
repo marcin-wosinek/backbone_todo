@@ -1,0 +1,4 @@
+name: Backbone todo example
+description: 'Example of usage backbone in drupal 8'
+package: Example modules
+core: 8.x
