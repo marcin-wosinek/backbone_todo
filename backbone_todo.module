@@ -25,5 +25,8 @@ function backbone_todo_menu() {
  * Load todolist
  */
 function backbone_todo_page() {
-  return 'test';
+  $items = db_query("SELECT * FROM {backbone_todo}")->fetch();
+
+  echo json_encode($items);
+  exit();
 }
