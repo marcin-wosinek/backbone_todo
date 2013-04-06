@@ -18,14 +18,27 @@ function backbone_todo_menu() {
     'access callback' => TRUE,
   );
 
+  $items['backbone-todo/list'] = array(
+    'title' => 'Backbone todo',
+    'page callback' => 'backbone_todo_list',
+    'access callback' => TRUE,
+  );
+
   return $items;
 }
 
 /**
- * Load todolist
+ * Load todolist app
  */
 function backbone_todo_page() {
-  $items = db_query("SELECT * FROM {backbone_todo}")->fetch();
+  return 'lorem ipsum';
+}
+
+/**
+ * Load todolist data
+ */
+function backbone_todo_list() {
+  $items = db_query("SELECT * FROM {backbone_todo}")->fetchAll();
 
   echo json_encode($items);
   exit();
