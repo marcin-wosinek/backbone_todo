@@ -31,6 +31,7 @@ function backbone_todo_menu() {
  * Load todolist app
  */
 function backbone_todo_page() {
+  drupal_add_library('backbone_todo', 'backbone_todo');
   return 'lorem ipsum';
 }
 
@@ -42,4 +43,33 @@ function backbone_todo_list() {
 
   echo json_encode($items);
   exit();
+}
+
+/**
+ *  * Implements hook_library().
+ *   */
+function backbone_todo_library_info() {
+  $path = drupal_get_path('module', 'backbone_todo');
+
+  $options = array(
+    'scope' => 'footer',
+    'attributes' => array('defer' => TRUE),
+  );
+
+  $libraries['backbone_todo'] = array(
+    'title' => 'Backbone todo list',
+    'website' => 'https://github.com/marcin-wosinek/backbone_todo',
+    'version' => '0.1.0',
+    'js' => array(
+      $path . '/js/todo.js' => $options,
+    ),
+
+    'dependencies' => array(
+      array('system', 'jquery'),
+      array('system', 'underscore'),
+      array('system', 'backbone'),
+    )
+  );
+
+  return $libraries;
 }
