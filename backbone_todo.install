@@ -1,0 +1,88 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the backbone_todo module.
+ *
+ * Based on dbtng_example.install from module examples
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * We will create a default entry in the database.
+ *
+ * @see hook_install()
+ * @ingroup backbone_todo
+ */
+function backbone_todo_install() {
+  // Outside of the .install file we would use drupal_write_record() to
+  // populate the database, but it cannot be used here, so we'll use
+  // db_insert().
+
+  // Add a default entry.
+  $fields = array(
+    'text' => 'Checkout js code',
+  );
+  db_insert('backbone_todo')
+    ->fields($fields)
+    ->execute();
+
+  // Add another entry.
+  $fields = array(
+    'text' => 'Add backbone to own project',
+  );
+  db_insert('backbone_todo')
+    ->fields($fields)
+    ->execute();
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * @see hook_uninstall()
+ * @ingroup backbone_todo
+ */
+function backbone_todo_uninstall() {
+  // Nothing.
+}
+
+
+/**
+ * Implements hook_schema().
+ *
+ * Defines the database tables used by this module.
+ *
+ * @see hook_schema()
+ * @ingroup backbone_todo
+ */
+function backbone_todo_schema() {
+  $schema['backbone_todo'] = array(
+    'description' => 'Stores todo data for backbone presentation',
+    'fields' => array(
+      'pid'  => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique todo entry ID.',
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => "Creator user's {users}.uid",
+      ),
+      'text' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Name of the person.',
+      ),
+    ),
+    'primary key' => array('pid'),
+    'indexes' => array(
+      'text'    => array('text'),
+    ),
+  );
+
+  return $schema;
+}
